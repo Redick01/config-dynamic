@@ -36,7 +36,11 @@ public class ZookeeperConfigGroup extends GeneralConfigGroup {
 
     private final String node;
 
-    public ZookeeperConfigGroup(ConfigGroup configGroup, ZookeeperConfigProfile profile, CuratorFramework client, String node) throws InterruptedException {
+    public ZookeeperConfigGroup(ZookeeperConfigProfile profile, String node) {
+        this(null, profile, node);
+    }
+
+    public ZookeeperConfigGroup(ConfigGroup configGroup, ZookeeperConfigProfile profile, String node) {
         super(configGroup);
         this.profile = profile;
         this.node = node;
@@ -73,7 +77,11 @@ public class ZookeeperConfigGroup extends GeneralConfigGroup {
                 }
             }
         });
-        downLatch.await();
+        try {
+            downLatch.await();
+        } catch (InterruptedException e) {
+            e.printStackTrace();
+        }
     }
 
 
@@ -110,9 +118,7 @@ public class ZookeeperConfigGroup extends GeneralConfigGroup {
     private void reloadKey(String path) {
         try {
             Pair<String, String> keyValue = loadKey(path);
-            if (keyValue != null) {
-                super.put(keyValue.getKey(), keyValue.getValue());
-            }
+            super.put(keyValue.getKey(), keyValue.getValue());
         } catch (Exception e) {
             e.printStackTrace();
         }

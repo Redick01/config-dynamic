@@ -28,11 +28,11 @@ public class ZookeeperConfigProfile extends ConfigProfile {
     private final Integer retryCount;
 
 
-    public ZookeeperConfigProfile(String version, String zkConnectStr, String rootNode, Integer retryCount) {
+    public ZookeeperConfigProfile(String version, String zkConnectStr, String rootNode) {
         super(version);
         this.zkConnectStr = zkConnectStr;
         this.rootNode = rootNode;
-        this.retryCount = retryCount;
+        this.retryCount = 3;
     }
 
     public String getZkConnectStr() {

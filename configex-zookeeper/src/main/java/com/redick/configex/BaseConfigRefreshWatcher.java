@@ -15,9 +15,9 @@ public abstract class BaseConfigRefreshWatcher<T> implements IWatcher {
 
     private final GeneralConfigGroup group;
 
-    public BaseConfigRefreshWatcher(T config, ConfigRefreshProxy<T> proxy, GeneralConfigGroup group) {
+    public BaseConfigRefreshWatcher(T config, GeneralConfigGroup group) {
         this.config = config;
-        this.proxy = proxy;
+        this.proxy = new ConfigRefreshProxy<>(config, group);
         this.group = group;
         group.register(this);
         refresh();

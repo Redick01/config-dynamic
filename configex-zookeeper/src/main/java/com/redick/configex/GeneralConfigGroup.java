@@ -13,7 +13,7 @@ import java.util.concurrent.ConcurrentHashMap;
  */
 public abstract class GeneralConfigGroup extends ConcurrentHashMap<String, String> implements ConfigGroup, ISubject {
 
-    private ConfigGroup configGroup;
+    private final ConfigGroup configGroup;
 
     protected GeneralConfigGroup(ConfigGroup configGroup) {
         this.configGroup = configGroup;
@@ -49,7 +49,7 @@ public abstract class GeneralConfigGroup extends ConcurrentHashMap<String, Strin
         if (null != value && !value.equals(oldValue)) {
             super.put(key, value);
             if (null != oldValue) {
-                // notify zk
+                // notify change bean
                 notify(key, value);
             }
         }
