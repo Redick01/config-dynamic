@@ -1,0 +1,16 @@
+server:
+  port: 9891
+
+app:
+  id: configex-apollo
+apollo:
+  meta: http://localhost:8080
+  bootstrap:
+    enabled: true
+    eagerLoad:
+      enabled: true
+  autoUpdateInjectedSpringProperties:
+    false
+logging:
+  level:
+    com: info
