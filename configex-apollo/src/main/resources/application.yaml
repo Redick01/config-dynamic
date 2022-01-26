@@ -2,8 +2,6 @@ server:
   port: 9891
 
 spring:
-  profiles:
-    active: dev
   # 应用配置
   application:
     name: dy-test

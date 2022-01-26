@@ -21,17 +21,23 @@ public class Task {
 
     @PostConstruct
     public void task() throws Exception {
-        Thread.sleep(5000);
-        for (int i = 0; i < Integer.MAX_VALUE; i++) {
-            Thread t = new Thread(() -> {
-                System.out.println("hippo4j test : " + UUID.randomUUID().toString());
-            });
-            dynamicThreadPoolExecutor.execute(t);
+        new Thread(() -> {
             try {
-                Thread.sleep(2000);
+                Thread.sleep(5000);
+                for (int i = 0; i < Integer.MAX_VALUE; i++) {
+                    Thread t = new Thread(() -> {
+                        System.out.println("hippo4j test : " + UUID.randomUUID().toString());
+                    });
+                    dynamicThreadPoolExecutor.execute(t);
+                    try {
+                        Thread.sleep(2000);
+                    } catch (Exception e) {
+                        e.printStackTrace();
+                    }
+                }
             } catch (Exception e) {
                 e.printStackTrace();
             }
-        }
+        }).start();
     }
 }

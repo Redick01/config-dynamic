@@ -1,12 +1,14 @@
 package com.redick.apollo.config;
 
 import cn.hippo4j.starter.core.DynamicThreadPool;
+import cn.hippo4j.starter.toolkit.thread.ResizableCapacityLinkedBlockIngQueue;
 import cn.hippo4j.starter.toolkit.thread.ThreadPoolBuilder;
 import cn.hippo4j.starter.wrapper.DynamicThreadPoolWrapper;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 
 import java.util.concurrent.ThreadPoolExecutor;
+import java.util.concurrent.TimeUnit;
 
 /**
  * @author liupenghui
@@ -29,13 +31,13 @@ public class ThreadPoolConfig {
     public ThreadPoolExecutor dynamicThreadPoolExecutor() {
         return ThreadPoolBuilder.builder()
                 .threadFactory("apollo-thread-pool")
+                .threadPoolId("apollo-thread-pool")
+                .corePoolSize(5)
+                .maxPoolNum(10)
+                .workQueue(new ResizableCapacityLinkedBlockIngQueue(1024))
+                .rejected(new ThreadPoolExecutor.AbortPolicy())
+                .keepAliveTime(6000, TimeUnit.MILLISECONDS)
                 .dynamicPool()
-                /**
-                 * 测试线程任务装饰器.
-                 * 如果需要查看详情, 跳转 {@link TaskDecoratorTest}
-                 */
-                .waitForTasksToCompleteOnShutdown(true)
-                .awaitTerminationMillis(5000)
                 .build();
     }
 }
