@@ -12,6 +12,9 @@
         <module>configex-zookeeper</module>
         <module>configex-nacos</module>
         <module>configex-apollo</module>
+        <module>datachange</module>
+        <module>datachange/server</module>
+        <module>datachange/client</module>
     </modules>
 
     <parent>
