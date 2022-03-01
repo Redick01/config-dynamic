@@ -1,7 +1,10 @@
 package com.redick.nacos.threadpool;
 
+import com.dtp.common.em.QueueTypeEnum;
+import com.dtp.common.em.RejectedTypeEnum;
+import com.dtp.core.support.ThreadPoolCreator;
+import com.dtp.core.thread.DtpExecutor;
 import com.redick.nacos.service.BeanInterface;
-import com.redick.tp.dynamic.ThreadPoolBuilder;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 
@@ -15,12 +18,13 @@ import java.util.concurrent.ThreadPoolExecutor;
 public class ThreadPoolConfig {
 
     @Bean
-    public ThreadPoolExecutor threadPoolExecutor() {
-        return ThreadPoolBuilder.builder().threadFactoryPrefix("example").build();
+    public DtpExecutor dtpExecutor() {
+
+        return ThreadPoolCreator.createDynamicFast("dynamic-tp-test-1");
     }
 
-    @Bean
-    public BeanInterface beanInterface(){
-        return new BeanInterface();
-    }
+//    @Bean
+//    public BeanInterface beanInterface(){
+//        return new BeanInterface();
+//    }
 }

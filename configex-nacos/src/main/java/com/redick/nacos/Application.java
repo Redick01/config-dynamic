@@ -2,7 +2,7 @@ package com.redick.nacos;
 
 import com.alibaba.nacos.api.config.annotation.NacosValue;
 import com.alibaba.nacos.spring.context.annotation.config.NacosPropertySource;
-import com.redick.tp.annotation.EnableThreadPoolMonitor;
+import com.dtp.core.thread.DtpExecutor;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
@@ -16,8 +16,6 @@ import java.util.concurrent.ThreadPoolExecutor;
  * @date 2022/1/19 5:47 下午
  */
 @SpringBootApplication
-@NacosPropertySource(dataId = "config_group", autoRefreshed = true)
-@EnableThreadPoolMonitor
 @RestController
 public class Application {
 
@@ -25,7 +23,7 @@ public class Application {
     private String flag;
 
     @Autowired
-    private ThreadPoolExecutor threadPoolExecutor;
+    private DtpExecutor dtpExecutor;
 
 
     public static void main(String[] args) {
@@ -41,7 +39,7 @@ public class Application {
                 e.printStackTrace();
             }
         }).start();
-        return this.flag;
+        return "1";
     }
 
     public void task() throws InterruptedException {
@@ -50,7 +48,7 @@ public class Application {
             Thread t = new Thread(() -> {
                 System.out.println("i am task");
             });
-            threadPoolExecutor.execute(t);
+            dtpExecutor.execute(t);
         }
     }
 }
