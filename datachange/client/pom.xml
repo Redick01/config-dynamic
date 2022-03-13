@@ -27,5 +27,16 @@
             <artifactId>httpclient5</artifactId>
             <version>5.0</version>
         </dependency>
+        <dependency>
+            <groupId>io.github.hengyunabc</groupId>
+            <artifactId>zabbix-sender</artifactId>
+            <version>0.0.5</version>
+        </dependency>
+        <dependency>
+            <groupId>io.github.hengyunabc</groupId>
+            <artifactId>metrics-zabbix</artifactId>
+            <version>0.0.5</version>
+        </dependency>
+
     </dependencies>
 </project>

@@ -15,6 +15,7 @@
         <module>datachange</module>
         <module>datachange/server</module>
         <module>datachange/client</module>
+        <module>configex-consul</module>
     </modules>
 
     <parent>

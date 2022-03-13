@@ -14,7 +14,15 @@ nacos:
       log-enable: true
 
 
-
 #logging:
 #  level:
 #    root: DEBUG
+
+#management:
+#  metrics:
+#    tags:
+#      application: ${spring.application.name}
+#  endpoints:
+#    web:
+#      exposure:
+#        include: '*'

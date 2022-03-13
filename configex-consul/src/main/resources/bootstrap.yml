@@ -1,0 +1,28 @@
+server:
+  port: 8899
+  servlet:
+    context-path: /configex-consul/
+spring:
+  application:
+    name: configex-consul
+  cloud:
+    consul:
+      #配置consul服务器的host
+      host: 127.0.0.1
+      #配置端口
+      port: 8500
+      config:
+        #配置默认文件名
+        default-context: ${spring.application.name}
+        #是否启用consul配置
+        enabled: true
+        #配置文件格式
+        format: YAML
+        #配置基本文件，默认值config
+        prefix: config
+        #配置文件名，默认data
+        data-key: test
+
+#logging:
+#  level:
+#    root: DEBUG
