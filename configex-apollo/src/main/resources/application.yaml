@@ -1,6 +1,7 @@
 server:
   port: 9891
 
+
 spring:
   # 应用配置
   application:
@@ -29,3 +30,7 @@ apollo:
 logging:
   level:
     com: info
+redick:
+  service:
+    age: 30
+    name: liupenghui

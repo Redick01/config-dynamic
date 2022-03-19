@@ -1,6 +1,5 @@
 package com.redick.apollo;
 
-import cn.hippo4j.starter.enable.EnableDynamicThreadPool;
 import com.ctrip.framework.apollo.spring.annotation.EnableApolloConfig;
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
@@ -11,7 +10,6 @@ import org.springframework.boot.autoconfigure.SpringBootApplication;
  */
 @SpringBootApplication
 @EnableApolloConfig
-@EnableDynamicThreadPool
 public class ApplicationApo {
 
     public static void main(String[] args) {

@@ -32,6 +32,11 @@ public class ConfigChangeListener implements SmartApplicationListener {
     }
 
     @Override
+    public boolean supportsSourceType(Class<?> sourceType) {
+        return false;
+    }
+
+    @Override
     public void onApplicationEvent(ApplicationEvent applicationEvent) {
         if (applicationEvent instanceof RefreshEvent) {
             Response<List<GetValue>> response = client.getKVValues("config/configex-consul", "");
@@ -40,5 +45,10 @@ public class ConfigChangeListener implements SmartApplicationListener {
                 System.out.println(v.getKey() + ":" + v.getDecodedValue());
             });
         }
+    }
+
+    @Override
+    public int getOrder() {
+        return 0;
     }
 }
