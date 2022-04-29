@@ -2,3 +2,6 @@ server:
   port: 9099
   servlet:
     context-path: /server/v1
+logging:
+  pattern:
+    console: "%date %level [%thread] %logger{10} [%file:%line] - [%X{traceId}] - %msg%n"
