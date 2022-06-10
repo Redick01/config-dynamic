@@ -2,6 +2,9 @@ server:
   port: 9099
   servlet:
     context-path: /server/v1
+  tomcat:
+    min-spare-threads: 1
+    max-threads: 1
 logging:
   pattern:
     console: "%date %level [%thread] %logger{10} [%file:%line] - [%X{traceId}] - %msg%n"

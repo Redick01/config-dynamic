@@ -10,6 +10,8 @@ import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RestController;
 
 import javax.servlet.AsyncContext;
+import javax.servlet.AsyncEvent;
+import javax.servlet.AsyncListener;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import java.io.IOException;
@@ -34,6 +36,8 @@ public class DataChangeController {
     private final ThreadFactory threadFactory = new ThreadFactoryBuilder().setNameFormat("longPolling-timeout-checker-%d")
             .build();
     private final ScheduledExecutorService timeoutChecker = new ScheduledThreadPoolExecutor(1, threadFactory);
+
+    private static boolean result = false;
 
 
     @Data
@@ -80,5 +84,49 @@ public class DataChangeController {
             e.getAsyncContext().complete();
         });
         return "success";
+    }
+
+    @PostMapping("/async")
+    public void async(HttpServletRequest request, HttpServletResponse response) {
+        AsyncContext asyncContext = request.startAsync(request, response);
+        String name = request.getParameter("name");
+        asyncContext.setTimeout(2000L);
+        asyncContext.addListener(new AsyncListener() {
+            @Override
+            public void onComplete(AsyncEvent asyncEvent) throws IOException {
+
+            }
+
+            @Override
+            public void onTimeout(AsyncEvent asyncEvent) throws IOException {
+                asyncContext.getResponse().getWriter().print(name + "：timeout");
+                asyncContext.complete();
+            }
+
+            @Override
+            public void onError(AsyncEvent asyncEvent) throws IOException {
+
+            }
+
+            @Override
+            public void onStartAsync(AsyncEvent asyncEvent) throws IOException {
+
+            }
+        });
+        timeoutChecker.scheduleWithFixedDelay(() -> {
+            try {
+                if (result) {
+                    asyncContext.getResponse().getWriter().print(name);
+                    asyncContext.complete();
+                }
+            } catch (IOException e) {
+                e.printStackTrace();
+            }
+        }, 0, 100L, TimeUnit.MILLISECONDS);
+    }
+
+    @PostMapping("/notify")
+    public void notify(Boolean s) {
+        result = s;
     }
 }
