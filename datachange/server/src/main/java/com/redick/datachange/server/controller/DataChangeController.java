@@ -37,7 +37,7 @@ public class DataChangeController {
             .build();
     private final ScheduledExecutorService timeoutChecker = new ScheduledThreadPoolExecutor(1, threadFactory);
 
-    private static boolean result = false;
+
 
 
     @Data
@@ -68,6 +68,8 @@ public class DataChangeController {
             }
         }, 30000, TimeUnit.MILLISECONDS);
     }
+
+    private static boolean result = false;
 
     @PostMapping("/publishConfig")
     public String publishConfig(String key, String configData) {
