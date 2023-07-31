@@ -7,6 +7,7 @@ import com.google.common.util.concurrent.ThreadFactoryBuilder;
 import lombok.Data;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RestController;
 
 import javax.servlet.AsyncContext;
@@ -89,9 +90,9 @@ public class DataChangeController {
     }
 
     @PostMapping("/async")
-    public void async(HttpServletRequest request, HttpServletResponse response) {
+    public void async(@RequestBody Request re1, HttpServletRequest request, HttpServletResponse response) {
         AsyncContext asyncContext = request.startAsync(request, response);
-        String name = request.getParameter("name");
+        String name = re1.getUsername();
         asyncContext.setTimeout(2000L);
         asyncContext.addListener(new AsyncListener() {
             @Override
